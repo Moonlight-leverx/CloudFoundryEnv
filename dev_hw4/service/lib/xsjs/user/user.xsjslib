@@ -66,15 +66,12 @@ var statements = function() {
     let sColumnList = '',
       sValueList = '';
 
-    Object.keys(oValueObject).forEach(value => {
-      sColumnList += `"${value}",`;
-      oResult.aParams.push(value);
-    });
-
-    Object.values(oValueObject).forEach(value => {
+    for (let key in oValueObject) {
+      sColumnList += `"${key}",`;
+      oResult.aParams.push(key);
       sValueList += "?, ";
-      oResult.aValues.push(value);
-    });
+      oResult.aValues.push(oValueObject[key]);
+    }
 
     $.trace.error("svalue " + sValueList);
     $.trace.error("scolumn: " + sColumnList);
@@ -101,7 +98,7 @@ var statements = function() {
       oResult.aValues.push(oConditionObject[key]);
       oResult.aParams.push(key);
     }
-    // Remove the last unnecessary AND
+
     sWhereClause = sWhereClause.slice(0, -5);
     if (sWhereClause.length > 0) {
       sWhereClause = " where " + sWhereClause;
@@ -123,15 +120,12 @@ var statements = function() {
     let sColumnList = '',
       sValueList = '';
 
-    Object.keys(oValueObject).forEach(value => {
-      sColumnList += `"${value}",`;
-      oResult.aParams.push(value);
-    });
-
-    Object.values(oValueObject).forEach(value => {
+    for (let key in oValueObject) {
+      sColumnList += `"${key}",`;
+      oResult.aParams.push(key);
       sValueList += "?, ";
-      oResult.aValues.push(value);
-    });
+      oResult.aValues.push(oValueObject[key]);
+    }
 
     $.trace.error("svalue " + sValueList);
     $.trace.error("scolumn: " + sColumnList);

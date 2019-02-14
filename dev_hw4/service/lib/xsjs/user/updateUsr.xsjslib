@@ -14,6 +14,7 @@ function usersUpdate(param) {
 
   pStmt.close();
   pStmt = param.connection.prepareStatement(`UPDATE \"${USER_TABLE}\" SET "name"='${oUser.name}' WHERE "usid"=${oUser.usid}`);
+                                           
   exucuteAndClose(pStmt);
   pStmt = param.connection.prepareStatement("TRUNCATE TABLE \"" + after + "\"");
   exucuteAndClose(pStmt);

@@ -1,3 +1,5 @@
+// this file is not used
+
 const USER_TABLE = "dev::User";
 const SEQ = "dev::usid";
 
