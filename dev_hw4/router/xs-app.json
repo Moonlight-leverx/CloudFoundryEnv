@@ -2,6 +2,21 @@
  "welcomeFile": "/cp.portal",
  "authenticationMethod": "none",
  "routes": [
+   {
+     "source": "^/sapui5_resources/(.*)$",
+     "target": "$1",
+     "destination": "sapui5_provider"
+   },
+   {
+     "source": "^/s4c/(.*)",
+     "target": "/$1",
+     "destination": "S4C"
+   },
+   {
+    "source": "^/odata_resources/(.*)$",
+    "target": "$1",
+    "destination": "odata_resources"
+  },
   {
    "source": "/api/(.*)",
    "target": "$1",
