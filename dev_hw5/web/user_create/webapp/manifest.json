@@ -28,8 +28,8 @@
   },
   "sap.platform.cf": {
     "oAuthScopes": [
-      "dev!b10746.himta.view",
-      "dev!b10746.himta.edit"
+      "dev!b10746.dev.view",
+      "dev!b10746.dev.edit"
     ]
   },
 	"sap.ui": {

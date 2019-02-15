@@ -12,18 +12,17 @@
             "name": "Component.js"
         },
         {
-            "name": "controller\\Display-dbg.controller.js",
+            "name": "controller\\App-dbg.controller.js",
             "isDebug": true
         },
         {
-            "name": "controller\\Display.controller.js"
+            "name": "controller\\App.controller.js"
         },
         {
             "name": "di.code-validation.core_issues.json"
         },
         {
-            "name": "i18n\\i18n.properties",
-            "raw": "i18n\\i18n.properties"
+            "name": "fragment\\ConfirmDeleteDialog.fragment.xml"
         },
         {
             "name": "index.html"
@@ -39,11 +38,10 @@
             "name": "tmp\\Component.js"
         },
         {
-            "name": "tmp\\controller\\Display.controller.js"
+            "name": "tmp\\controller\\App.controller.js"
         },
         {
-            "name": "tmp\\i18n\\i18n.properties",
-            "raw": "i18n\\i18n.properties"
+            "name": "tmp\\fragment\\ConfirmDeleteDialog.fragment.xml"
         },
         {
             "name": "tmp\\index.html"
@@ -52,16 +50,16 @@
             "name": "tmp\\manifest.json"
         },
         {
-            "name": "tmp\\view\\Display.view.xml"
+            "name": "tmp\\view\\App.view.xml"
         },
         {
             "name": "tmp-dbg\\Component.js"
         },
         {
-            "name": "tmp-dbg\\controller\\Display.controller.js"
+            "name": "tmp-dbg\\controller\\App.controller.js"
         },
         {
-            "name": "view\\Display.view.xml"
+            "name": "view\\App.view.xml"
         },
         {
             "name": "xs-app.json"

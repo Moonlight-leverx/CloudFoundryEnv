@@ -1,91 +1,92 @@
 {
-    "_version": "1.12.0",
-    "sap.app": {
-        "id": "user_display",
-        "type": "application",
-        "i18n": "i18n/i18n.properties",
-        "title": "{{appTitle}}",
-        "description": "{{appDescription}}",
-        "applicationVersion": {
-            "version": "1.0.0"
-        }
-    },
-    "sap.ui": {
-        "technology": "UI5",
-        "deviceTypes": {
-            "desktop": true,
-            "tablet": true,
-            "phone": true
-        }
-    },
-    "sap.ui5": {
-        "rootView": {
-            "viewName": "user_display.view.App",
-            "type": "XML",
-            "async": true,
-            "id": "app"
-        },
-        "dependencies": {
-            "minUI5Version": "1.30",
-            "libs": {
-                "sap.m": {},
-                "sap.ui.core": {}
-            }
-        },
-        "models": {
-            "i18n": {
-                "type": "sap.ui.model.resource.ResourceModel",
-                "settings": {
-                    "bundleName": "sap.ui.demo.wt.i18n.i18n"
-                }
-            },
-            "People": {
-                "type": "sap.ui.model.json.JSONModel",
-                "uri": "https://services.odata.org/V4/(S(b5decsmb3vvzowv504uigwlu))/TripPinServiceRW/People"
-            }
-        },
-        "routing": {
-            "config": {
-                "routerClass": "sap.m.routing.Router",
-                "viewType": "XML",
-                "viewPath": "user_display.view",
-                "controlId": "app",
-                "controlAggregation": "pages",
-                "transition": "slide",
-                "bypassed": {
-                    "target": "notFound"
-                },
-                "async": true
-            },
-            "routes": [
-                {
-                    "pattern": "",
-                    "name": "appHome",
-                    "target": "app"
-                },
-                {
-                    "pattern": "details/{id}",
-                    "name": "details",
-                    "target": "details"
-                }
-            ],
-            "targets": {
-                "app": {
-                    "viewID": "app",
-                    "viewName": "App",
-                    "viewLevel": 1
-                },
-                "details": {
-                    "viewID": "details",
-                    "viewName": "Details",
-                    "viewLevel": 2
-                },
-                "notFound": {
-                    "viewId": "notFound",
-                    "viewName": "NotFound",
-                    "transition": "show"
-                }
-            }
-        }
-    }
-}
+	"_version": "1.8.0",
+	"sap.app": {
+		"id": "user_display",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "html5moduletemplates.basicSAPUI5ApplicationProjectModule",
+			"version": "1.40.12"
+		},
+		"dataSources": {
+			"mainService": {
+				"uri": "p2001079623trial-df43r34-dev-service.cfapps.eu10.hana.ondemand.com/xsodata/dev.xsodata/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0"
+				}
+			}
+		}
+	},
+	"sap.platform.cf": {
+    "oAuthScopes": [
+      "dev!b10746.dev.view",
+      "dev!b10746.dev.edit"
+    ]
+  },
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_belize"
+
+		]
+	},
+
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "user_display.view.Display",
+			"type": "XML",
+			"async": true,
+			"id": "display"
+		},
+		"dependencies": {
+			"minUI5Version": "1.60.1",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ui.layout": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "user_display.i18n.i18n"
+				}
+			},
+			"users": {
+				"dataSource": "mainService",
+				"settings": {
+					"defaultBindingMode": "TwoWay",
+					"defaultCountMode": "Inline",
+					"useBatch": false,
+					"disableHeadRequestForToken": true
+				}
+			}
+		}
+		},
+		"resources": {		}
+	}

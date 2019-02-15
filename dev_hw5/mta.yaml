@@ -56,8 +56,8 @@ modules:
         type: html5
         path: web/user_display
         parameters:
-            disk-quota: 256M
             memory: 256M
+            disk-quota: 256M
         build-parameters:
             builder: grunt
         requires:

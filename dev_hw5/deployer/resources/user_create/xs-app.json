@@ -1,27 +1,27 @@
-{  
+{
    "welcomeFile":"/index.html",
    "authenticationMethod":"route",
-   "routes":[  
-      {  
+   "routes":[
+      {
          "source":"^(.*)$",
          "target":"$1",
          "service":"html5-apps-repo-rt",
          "csrfProtection":true,
          "authenticationType":"xsuaa",
-         "scope":{  
-            "GET":[  
-               "$XSAPPNAME.himta.view"
+         "scope":{
+            "GET":[
+               "$XSAPPNAME.dev.view"
             ],
-            "POST":[  
-               "$XSAPPNAME.himta.edit"
+            "POST":[
+               "$XSAPPNAME.dev.edit"
             ],
-            "PUT":[  
-               "$XSAPPNAME.himta.edit"
+            "PUT":[
+               "$XSAPPNAME.dev.edit"
             ],
-            "DELETE":[  
-               "$XSAPPNAME.himta.edit"
+            "DELETE":[
+               "$XSAPPNAME.dev.edit"
             ],
-            "default":"$XSAPPNAME.himta.view"
+            "default":"$XSAPPNAME.dev.view"
          }
       }
    ]

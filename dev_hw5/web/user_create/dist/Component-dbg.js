@@ -4,7 +4,7 @@ sap.ui.define([
 ], function (UIComponent, Device) {
 	"use strict";
 
-	return UIComponent.extend("user_display.Component", {
+	return UIComponent.extend("user_create.Component", {
 
 		metadata: {
 			manifest: "json"
@@ -17,7 +17,6 @@ sap.ui.define([
 		 */
 		init: function () {
 			// call the base component's init function
-			
 			UIComponent.prototype.init.apply(this, arguments);
 		}
 	});
