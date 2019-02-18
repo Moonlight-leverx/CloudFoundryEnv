@@ -15,7 +15,7 @@
 		},
 		"dataSources": {
 			"mainService": {
-				"uri": "p2001079623trial-df43r34-dev-service.cfapps.eu10.hana.ondemand.com/xsodata/dev.xsodata/",
+				"uri": "https://p2001079623trial-df43r34-dev-service.cfapps.eu10.hana.ondemand.com/xsodata/dev.xsodata/",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0"

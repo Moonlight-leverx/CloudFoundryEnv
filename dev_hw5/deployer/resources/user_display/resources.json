@@ -19,6 +19,13 @@
             "name": "controller\\Display.controller.js"
         },
         {
+            "name": "css\\style-dbg.css",
+            "isDebug": true
+        },
+        {
+            "name": "css\\style.css"
+        },
+        {
             "name": "di.code-validation.core_issues.json"
         },
         {
@@ -42,6 +49,9 @@
             "name": "tmp\\controller\\Display.controller.js"
         },
         {
+            "name": "tmp\\css\\style.css"
+        },
+        {
             "name": "tmp\\i18n\\i18n.properties",
             "raw": "i18n\\i18n.properties"
         },
@@ -59,6 +69,9 @@
         },
         {
             "name": "tmp-dbg\\controller\\Display.controller.js"
+        },
+        {
+            "name": "tmp-dbg\\css\\style.css"
         },
         {
             "name": "view\\Display.view.xml"

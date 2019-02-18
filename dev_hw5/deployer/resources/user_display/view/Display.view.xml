@@ -1,36 +1,61 @@
-<mvc:View controllerName="user_display.controller.Display" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc">
-	<Shell>
-	<App>
-	<pages>
-	<Page>
-    <Panel id="PeopleDetailPanel" headerText="Details" class="sapUiResponsiveMargin" width="auto">
-    <content>
-      <Table id="details" items = "{
-      path: 'users>/Users'
-      }">
-        <columns>
-          <Column id="userIdColumn">
-            <Text text="{i18n>userIdText}" />
-          </Column>
-          <Column id="userNameColumn">
-            <Text text="{i18n>userNameText}" />
-          </Column>        
-        </columns>
-        <items>
-          <ColumnListItem>
-            <cells>
-              <Label text="{users>usid}" />
-            </cells>
-            <cells>
-              <Label text="{users>name}" />
-            </cells>          
-          </ColumnListItem>
-        </items>
-      </Table>
-    </content>
-  </Panel>
-	</Page>
-	</pages>
-	</App>
-	</Shell>
+<mvc:View controllerName="user_display.controller.Display" 
+  xmlns="sap.m" 
+  xmlns:l="sap.ui.layout" 
+  xmlns:mvc="sap.ui.core.mvc">
+  <Shell>
+    <App>
+      <pages>
+        <Page>
+          <Panel id="PeopleDetailPanel" headerText="Details" class="sapUiResponsiveMargin" width="auto">
+            <content>
+              <l:HorizontalLayout>
+                <l:content>
+                  <Button text="Refresh" press="onRefresh" icon="sap-icon://refresh" class="sapUiTinyMargin">
+                    <layoutData>
+                      <FlexItemData growFactor="1" />
+                    </layoutData>
+                  </Button>
+                  <Button text="Create" press="onCreate" icon="sap-icon://add" class="sapUiTinyMargin">
+                    <layoutData>
+                      <FlexItemData growFactor="1" />
+                    </layoutData>
+                  </Button>
+                  <Button text="Edit" press="onUpdate" icon="sap-icon://edit" class="sapUiTinyMargin">
+                    <layoutData>
+                      <FlexItemData growFactor="1" />
+                    </layoutData>
+                  </Button>
+                  <Button text="Delete" press="onDelete" icon="sap-icon://delete" class="sapUiTinyMargin">
+                    <layoutData>
+                      <FlexItemData growFactor="1" />
+                    </layoutData>
+                  </Button>
+                </l:content>
+              </l:HorizontalLayout>
+              <Table id="details" items = "{path: 'users>/Users'}" mode="SingleSelectMaster" selectionChange="onSelectionChange">
+                <columns>
+                  <Column id="userIdColumn">
+                    <Text text="{i18n>userIdText}" />
+                  </Column>
+                  <Column id="userNameColumn">
+                    <Text text="{i18n>userNameText}" />
+                  </Column>
+                </columns>
+                <items>
+                  <ColumnListItem>
+                    <cells>
+                      <Label text="{users>usid}" />
+                    </cells>
+                    <cells>
+                      <Label text="{users>name}" />
+                    </cells>
+                  </ColumnListItem>
+                </items>
+              </Table>
+            </content>
+          </Panel>
+        </Page>
+      </pages>
+    </App>
+  </Shell>
 </mvc:View>
