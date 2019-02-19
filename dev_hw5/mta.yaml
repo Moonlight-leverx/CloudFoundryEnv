@@ -1,4 +1,4 @@
-﻿ID: dev
+ID: dev
 _schema-version: 2.1
 version: 0.0.1
 parameters:
@@ -19,6 +19,8 @@ modules:
         name: service
         type: nodejs
         path: service
+        properties:
+            XS_APP_LOG_LEVEL: debug
         requires:
             - {name: pt_db}
             - {name: pt_hdi}
