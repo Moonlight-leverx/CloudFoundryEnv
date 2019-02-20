@@ -145,7 +145,9 @@ sap.ui.define([
             var oObject = {};
             oObject = {
               "usid": sUserID,
-              "name": sUserName
+              "name": sUserName,
+              "ts_update": null,
+              "ts_create": null
             };
 
             var oModel = new sap.ui.model.odata.ODataModel("https://p2001079623trial-df43r34-dev-service.cfapps.eu10.hana.ondemand.com/xsodata/dev.xsodata", false);
