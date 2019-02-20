@@ -1,6 +1,6 @@
-<mvc:View controllerName="user_display.controller.Display" 
-  xmlns="sap.m" 
-  xmlns:l="sap.ui.layout" 
+<mvc:View controllerName="user_display.controller.Display"
+  xmlns="sap.m"
+  xmlns:l="sap.ui.layout"
   xmlns:mvc="sap.ui.core.mvc">
   <Shell>
     <App>
@@ -40,6 +40,12 @@
                   <Column id="userNameColumn">
                     <Text text="{i18n>userNameText}" />
                   </Column>
+                  <Column id="userCreateTS">
+                    <Text text="{i18n>createUserTS}" />
+                  </Column>
+                  <Column id="userUpdateTS">
+                    <Text text="{i18n>updateUserTS}" />
+                  </Column>
                 </columns>
                 <items>
                   <ColumnListItem>
@@ -48,6 +54,12 @@
                     </cells>
                     <cells>
                       <Label text="{users>name}" />
+                    </cells>
+                    <cells>
+                      <Label text="{users>ts_create}" />
+                    </cells>
+                    <cells>
+                      <Label text="{users>ts_update}" />
                     </cells>
                   </ColumnListItem>
                 </items>

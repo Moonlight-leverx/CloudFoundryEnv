@@ -31,18 +31,20 @@ function usersCreate(param) {
   $.trace.error(JSON.stringify(oUser));
   pStmt.close()
 
-  pStmt = param.connection.prepareStatement(`insert into \"${USER_TABLE}\" values(?,?)`);
+  pStmt = param.connection.prepareStatement(`insert into \"${USER_TABLE}\" values(?,?,?,?)`);
   	fillAndExecute(pStmt, oUser);
   	pStmt = param.connection.prepareStatement("TRUNCATE TABLE \"" + after + "\"" );
   	pStmt.executeUpdate();
   	pStmt.close();
-  	pStmt = param.connection.prepareStatement("insert into \"" + after + "\" values(?,?)" );
+  	pStmt = param.connection.prepareStatement("insert into \"" + after + "\" values(?,?,?,?)" );
   	fillAndExecute(pStmt, oUser);
 }
 
 function fillAndExecute(pStmt, oUser) {
 	pStmt.setString(1, oUser.id.toString());
 	pStmt.setString(2, oUser.name.toString());
+  pStmt.setTimestamp(3, (new Date()).toISOString());
+  pStmt.setTimestamp(4, (new Date()).toISOString());
 	pStmt.executeUpdate();
 	pStmt.close();
 }
