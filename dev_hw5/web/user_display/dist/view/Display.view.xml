@@ -10,29 +10,29 @@
             <content>
               <l:HorizontalLayout>
                 <l:content>
-                  <Button text="Refresh" press="onRefresh" icon="sap-icon://refresh" class="sapUiTinyMargin">
+                  <Button text="Refresh" press="onRefresh" icon="sap-icon://refresh" class="sapUiTinyMargin ref_btn">
                     <layoutData>
                       <FlexItemData growFactor="1" />
                     </layoutData>
                   </Button>
-                  <Button text="Create" press="onCreate" icon="sap-icon://add" class="sapUiTinyMargin">
+                  <Button text="Edit" press="onUpdate" icon="sap-icon://edit" class="sapUiTinyMargin edit_btn">
                     <layoutData>
                       <FlexItemData growFactor="1" />
                     </layoutData>
                   </Button>
-                  <Button text="Edit" press="onUpdate" icon="sap-icon://edit" class="sapUiTinyMargin">
+                  <Button text="Create" type="Accept" press="onCreate" icon="sap-icon://add" class="sapUiTinyMargin create_btn">
                     <layoutData>
                       <FlexItemData growFactor="1" />
                     </layoutData>
                   </Button>
-                  <Button text="Delete" press="onDelete" icon="sap-icon://delete" class="sapUiTinyMargin">
+                  <Button text="Delete" press="onDelete" type="Reject" icon="sap-icon://delete" class="sapUiTinyMargin del_btn">
                     <layoutData>
                       <FlexItemData growFactor="1" />
                     </layoutData>
                   </Button>
                 </l:content>
               </l:HorizontalLayout>
-              <Table id="details" items = "{path: 'users>/Users'}" mode="SingleSelectMaster" selectionChange="onSelectionChange">
+              <Table id="details" items = "{path: 'users>/Users'}" mode="SingleSelect" selectionChange="onSelectionChange">
                 <columns>
                   <Column id="userIdColumn">
                     <Text text="{i18n>userIdText}" />
