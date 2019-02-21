@@ -144,13 +144,12 @@ sap.ui.define([
 
             var oObject = {};
             oObject = {
-              "usid": sUserID,
               "name": sUserName,
               "ts_update": null,
               "ts_create": null
             };
 
-            var oModel = new sap.ui.model.odata.ODataModel("https://p2001079623trial-df43r34-dev-service.cfapps.eu10.hana.ondemand.com/xsodata/dev.xsodata", false);
+            var oModel = new sap.ui.model.odata.ODataModel("https://p2001079623trial-df43r34-dev-service.cfapps.eu10.hana.ondemand.com/xsodata/dev.xsodata", true);
             sap.ui.getCore().setModel(oModel);
 
             sap.ui.getCore().getModel().update("/Users('" + sUserID + "')", oObject, null, function() {

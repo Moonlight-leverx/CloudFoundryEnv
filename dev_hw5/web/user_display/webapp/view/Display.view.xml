@@ -10,7 +10,7 @@
             <content>
               <l:HorizontalLayout>
                 <l:content>
-                  <Button text="Refresh" press="onRefresh" icon="sap-icon://refresh" class="sapUiTinyMargin ref_btn">
+                  <Button text="Refresh" press="onRefresh" icon="sap-icon://refresh" class="sapUiTinyMargin ref_btn" type="Ghost">
                     <layoutData>
                       <FlexItemData growFactor="1" />
                     </layoutData>
@@ -34,16 +34,16 @@
               </l:HorizontalLayout>
               <Table id="details" items = "{path: 'users>/Users'}" mode="SingleSelect" selectionChange="onSelectionChange">
                 <columns>
-                  <Column id="userIdColumn">
+                  <Column id="userIdColumn" width="100px" hAlign="Center" sortIndicator="Ascending">
                     <Text text="{i18n>userIdText}" />
                   </Column>
-                  <Column id="userNameColumn">
+                  <Column id="userNameColumn" width="200px" hAlign="Center">
                     <Text text="{i18n>userNameText}" />
                   </Column>
-                  <Column id="userCreateTS">
+                  <Column id="userCreateTS" hAlign="Center">
                     <Text text="{i18n>createUserTS}" />
                   </Column>
-                  <Column id="userUpdateTS">
+                  <Column id="userUpdateTS" hAlign="Center">
                     <Text text="{i18n>updateUserTS}" />
                   </Column>
                 </columns>
