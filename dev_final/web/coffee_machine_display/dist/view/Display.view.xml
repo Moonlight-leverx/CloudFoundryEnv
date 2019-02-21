@@ -10,7 +10,7 @@
             <content>
               <l:HorizontalLayout>
                 <l:content>
-                  <Button text="Refresh" press="onRefresh" icon="sap-icon://refresh" class="sapUiTinyMargin ref_btn">
+                  <Button text="Refresh" press="onRefresh" icon="sap-icon://refresh" class="sapUiTinyMargin ref_btn" type="Ghost">
                     <layoutData>
                       <FlexItemData growFactor="1" />
                     </layoutData>
@@ -34,19 +34,19 @@
               </l:HorizontalLayout>
               <Table id="details" items = "{path: 'coffee_machines>/CoffeeMachines'}" mode="SingleSelect" selectionChange="onSelectionChange">
                 <columns>
-                  <Column id="cmIdColumn">
+                  <Column id="cmIdColumn" width="100px" hAlign="Center" sortIndicator="Ascending">
                     <Text text="{i18n>cmIdText}" />
                   </Column>
-                  <Column id="cmNameColumn">
+                  <Column id="cmNameColumn" width="200px" hAlign="Center">
                     <Text text="{i18n>cmNameText}" />
                   </Column>
-                  <Column id="cmNcupsColumn">
+                  <Column id="cmNcupsColumn" hAlign="Center">
                     <Text text="{i18n>cmNcupsText}" />
                   </Column>
-                  <Column id="cmCreateTS">
+                  <Column id="cmCreateTS" hAlign="Center">
                     <Text text="{i18n>createCmTS}" />
                   </Column>
-                  <Column id="cmUpdateTS">
+                  <Column id="cmUpdateTS" hAlign="Center">
                     <Text text="{i18n>updateCmTS}" />
                   </Column>
                 </columns>

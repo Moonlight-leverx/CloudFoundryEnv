@@ -22,7 +22,7 @@ context ExtraInfo{
 		    @Comment: 'CM for Service'
 		    cmid : String(4);
 		    @Comment: 'workscope'
-		    name : String(100);
+		    workscope : String(100);
 
     		toCoffeeMachine : Association[1] to CoffeeMachines on toCoffeeMachine.cmid = cmid;
 		};
