@@ -1,0 +1,16 @@
+{
+  "name": "coffee_machine_display",
+  "version": "0.0.1",
+  "description": "",
+  "devDependencies": {
+    "@sap/grunt-sapui5-bestpractice-build": "1.3.62",
+    "cors-anywhere": "^0.4.1"
+  },
+  "dependencies": {
+    "@sap/approuter": "5.7.0"
+  },
+  "scripts": {
+    "start": "node node_modules/@sap/approuter/approuter.js",
+    "proxy": "node proxy.js"
+  }
+}

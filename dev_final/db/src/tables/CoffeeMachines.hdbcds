@@ -1,0 +1,21 @@
+namespace dev;
+
+using dev::ExtraInfo.CustomerAddr;
+using dev::ExtraInfo.Services;
+
+
+entity CoffeeMachines {
+    @Comment: 'Id of Coffee Machine'
+    key cmid : String(4);
+    @Comment: 'Description'
+    name : String(100);
+    @Comment: 'Number of simultaneous cups'
+    ncups : String(1);
+    @Comment: 'Updated'
+    ts_update: UTCDateTime;
+    @Comment: 'Created'
+    ts_create: UTCDateTime;
+
+    toServices : Association[*] to Services on toServices.cmid = cmid;
+    toCustomerAddr : Association[1] to CustomerAddr on toCustomerAddr.cmid = cmid;
+};

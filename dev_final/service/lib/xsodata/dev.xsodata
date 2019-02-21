@@ -1,0 +1,28 @@
+service namespace "dev"{
+
+    "dev::CoffeeMachine" as "CoffeeMachines"
+                navigates("CoffeeMachines_2_CustomerAddr" as "toCustomerAddr", "CoffeeMachines_2_Services" as "toServices")
+            create using "xsjs.coffeemachine:createCM.xsjslib::cmCreate"
+            update using "xsjs.coffeemachine:updateCM.xsjslib::cmUpdate"
+            delete using "xsjs.coffeemachine:deleteCM.xsjslib::cmDelete";
+
+    "dev::ExtraInfo.CustomerAddr" as "CustomerAddr"
+            create forbidden
+            update forbidden
+            delete forbidden;
+
+    "dev::ExtraInfo.Services" as "Services"
+                navigates("Services_2_CoffeeMachines" as "toCoffeeMachine")
+            create forbidden
+            update forbidden
+            delete forbidden;
+
+    association "CoffeeMachines_2_CustomerAddr" principal "CoffeeMachines"("cmid")
+            multiplicity "1" dependent "CustomerAddr"("cmid") multiplicity "1";
+
+    association "CoffeeMachines_2_Services" principal "CoffeeMachines"("cmid")
+            multiplicity "1" dependent "CoffeeMachines"("cmid") multiplicity "*";
+
+    association "Services_2_CoffeeMachine" principal "Services"("cmid")
+            multiplicity "1" dependent "CoffeeMachines"("cmid") multiplicity "1";
+}

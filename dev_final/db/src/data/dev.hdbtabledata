@@ -1,0 +1,53 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "dev::CoffeeMachines",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "dev::CoffeeMachines.csv",
+        "has_header": true
+      },
+      "import_settings": {
+        "import_columns": [
+          "cmid",
+          "name",
+          "ncups",
+          "ts_create",
+          "ts_update"
+        ]
+      }
+    },
+    {
+      "target_table": "dev::ExtraInfo.CustomerAddr",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "dev::CustomerAddr.csv",
+        "has_header": true
+      },
+      "import_settings": {
+        "import_columns": [
+					"cmid",
+					"city",
+					"strt",
+					"hnum"
+        ]
+      }
+    },
+    {
+      "target_table": "dev::ExtraInfo.Services",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "dev::Services.csv",
+        "has_header": true
+      },
+      "import_settings": {
+        "import_columns": [
+					"sid",
+          "cmid",
+          "workscope"
+        ]
+      }
+    }
+  ]
+}

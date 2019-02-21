@@ -1,0 +1,79 @@
+<mvc:View controllerName="coffee_machine_display.controller.Display"
+  xmlns="sap.m"
+  xmlns:l="sap.ui.layout"
+  xmlns:mvc="sap.ui.core.mvc">
+  <Shell>
+    <App>
+      <pages>
+        <Page>
+          <Panel id="CMDetailPanel" headerText="Info" class="sapUiResponsiveMargin" width="auto">
+            <content>
+              <l:HorizontalLayout>
+                <l:content>
+                  <Button text="Refresh" press="onRefresh" icon="sap-icon://refresh" class="sapUiTinyMargin ref_btn">
+                    <layoutData>
+                      <FlexItemData growFactor="1" />
+                    </layoutData>
+                  </Button>
+                  <Button text="Edit" press="onUpdate" icon="sap-icon://edit" class="sapUiTinyMargin edit_btn">
+                    <layoutData>
+                      <FlexItemData growFactor="1" />
+                    </layoutData>
+                  </Button>
+                  <Button text="Create" type="Accept" press="onCreate" icon="sap-icon://add" class="sapUiTinyMargin create_btn">
+                    <layoutData>
+                      <FlexItemData growFactor="1" />
+                    </layoutData>
+                  </Button>
+                  <Button text="Delete" press="onDelete" type="Reject" icon="sap-icon://delete" class="sapUiTinyMargin del_btn">
+                    <layoutData>
+                      <FlexItemData growFactor="1" />
+                    </layoutData>
+                  </Button>
+                </l:content>
+              </l:HorizontalLayout>
+              <Table id="details" items = "{path: 'coffee_machines>/CoffeeMachines'}" mode="SingleSelect" selectionChange="onSelectionChange">
+                <columns>
+                  <Column id="cmIdColumn">
+                    <Text text="{i18n>cmIdText}" />
+                  </Column>
+                  <Column id="cmNameColumn">
+                    <Text text="{i18n>cmNameText}" />
+                  </Column>
+                  <Column id="cmNcupsColumn">
+                    <Text text="{i18n>cmNcupsText}" />
+                  </Column>
+                  <Column id="cmCreateTS">
+                    <Text text="{i18n>createCmTS}" />
+                  </Column>
+                  <Column id="cmUpdateTS">
+                    <Text text="{i18n>updateCmTS}" />
+                  </Column>
+                </columns>
+                <items>
+                  <ColumnListItem>
+                    <cells>
+                      <Label text="{coffee_machines>cmid}" />
+                    </cells>
+                    <cells>
+                      <Label text="{coffee_machines>name}" />
+                    </cells>
+                    <cells>
+                      <Label text="{coffee_machines>ncups}" />
+                    </cells>
+                    <cells>
+                      <Label text="{coffee_machines>ts_create}" />
+                    </cells>
+                    <cells>
+                      <Label text="{coffee_machines>ts_update}" />
+                    </cells>
+                  </ColumnListItem>
+                </items>
+              </Table>
+            </content>
+          </Panel>
+        </Page>
+      </pages>
+    </App>
+  </Shell>
+</mvc:View>
