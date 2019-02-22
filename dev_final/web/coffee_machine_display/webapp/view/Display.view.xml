@@ -40,7 +40,7 @@
                   <Column id="cmNameColumn" width="200px" hAlign="Center">
                     <Text text="{i18n>cmNameText}" />
                   </Column>
-                  <Column id="cmNcupsColumn" hAlign="Center">
+                  <Column id="cmNcupsColumn" width="100px" hAlign="Center">
                     <Text text="{i18n>cmNcupsText}" />
                   </Column>
                   <Column id="cmCreateTS" hAlign="Center">

@@ -33,9 +33,9 @@ sap.ui.define([
                   new sap.m.Label({
                     width: "100px",
                     design: "Bold",
-                    text: "User ID:"
+                    text: "Coffee Machine ID:"
                   }).addStyleClass("popup_label"),
-                  new sap.m.Input("UserID_inp", {
+                  new sap.m.Input("cmid_inp", {
                     width: "230px",
                     value: "ID will generated automatically",
                     editable: false
@@ -47,11 +47,24 @@ sap.ui.define([
                   new sap.m.Label({
                     width: "100px",
                     design: "Bold",
-                    text: "User Name:"
+                    text: "Brand:"
                   }).addStyleClass("popup_label"),
-                  new sap.m.Input("UserName_inp", {
+                  new sap.m.Input("brand_inp", {
                     value: "",
                     width: "230px"
+                  })
+                ]
+              }),
+              new sap.ui.layout.HorizontalLayout({
+                content: [
+                  new sap.m.Label({
+                    width: "100px",
+                    design: "Bold",
+                    text: "Ncups:"
+                  }).addStyleClass("popup_label"),
+                  new sap.m.Input("ncups_inp", {
+                    width: "230px",
+                    value: ""
                   })
                 ]
               })
@@ -62,19 +75,39 @@ sap.ui.define([
           text: "Save",
           type: "Accept",
           press: function() {
-            var sUserName = sap.ui.getCore().byId("UserName_inp").getValue();
-
+            var sBrand = sap.ui.getCore().byId("brand_inp").getValue();
+			var sNcups = sap.ui.getCore().byId("ncups_inp").getValue();
+			
+			if (isNaN(parseFloat(sNcups))) {
+				sap.m.MessageToast.show(" Ncups must contain only digits!" );
+				return;
+			}
+			
+			if (sNcups < 1 || sNcups > 9) {
+				sap.m.MessageToast.show(" Ncups must be greater than 1 and less than 9" );
+				return;
+			}
+			
             var oObject = {};
             oObject = {
-              "usid": "",
-              "name": sUserName
+              "cmid": "",
+              "name": sBrand,
+              "ncups": sNcups
             };
 
             var sServiceUrl = "https://p2001079623trial-df43r34-dev-service.cfapps.eu10.hana.ondemand.com/xsodata/dev.xsodata";
 
             var oModel = new sap.ui.model.odata.v2.ODataModel(sServiceUrl, true);
-            oModel.create("/Users", oObject);
-
+			
+			oModel.create("/CoffeeMachines", oObject, {
+        		success : function(oData, oResponse) {
+        			sap.m.MessageToast.show(" Created " );
+        		},
+    			error : function(oError) {
+        			sap.m.MessageToast.show(" Creation failed" );
+			    }
+			});
+			
             oModel.setRefreshAfterChange(false);
 
             dialog.close();
@@ -94,12 +127,13 @@ sap.ui.define([
       dialog.open();
     },
     onUpdate: function(oEvent) {
-      var oUser = this._item;
-      var oUserID = oUser.usid;
-      var oUserName = oUser.name;
+      var oCM = this._item;
+      var oCMID = oCM.cmid;
+      var oBrand = oCM.name;
+      var oNcups = oCM.ncups;
 
       var dialog = new sap.m.Dialog({
-        title: "Change User",
+        title: "Change Coffee Machine",
         type: "Message",
         content: [
           new sap.ui.layout.VerticalLayout({
@@ -110,11 +144,11 @@ sap.ui.define([
                   new sap.m.Label({
                     width: "100px",
                     design: "Bold",
-                    text: "User ID:"
+                    text: "Coffee Machine ID:"
                   }).addStyleClass("popup_label"),
-                  new sap.m.Input("UserID_inp", {
+                  new sap.m.Input("cmid_inp", {
                     width: "230px",
-                    value: oUserID,
+                    value: oCMID,
                     editable: false
                   })
                 ]
@@ -124,11 +158,24 @@ sap.ui.define([
                   new sap.m.Label({
                     width: "100px",
                     design: "Bold",
-                    text: "User Name:"
+                    text: "Brand:"
                   }).addStyleClass("popup_label"),
-                  new sap.m.Input("UserName_inp", {
-                    value: oUserName,
+                  new sap.m.Input("brand_inp", {
+                    value: oBrand,
                     width: "230px"
+                  })
+                ]
+              }),
+              new sap.ui.layout.HorizontalLayout({
+                content: [
+                  new sap.m.Label({
+                    width: "100px",
+                    design: "Bold",
+                    text: "Ncups:"
+                  }).addStyleClass("popup_label"),
+                  new sap.m.Input("ncups_inp", {
+                    width: "230px",
+                    value: oNcups
                   })
                 ]
               })
@@ -139,13 +186,25 @@ sap.ui.define([
           text: "Save",
           type: "Accept",
           press: function() {
-            var sUserID = sap.ui.getCore().byId("UserID_inp").getValue();
-            var sUserName = sap.ui.getCore().byId("UserName_inp").getValue();
-
+            var sCMID = sap.ui.getCore().byId("cmid_inp").getValue();
+            var sBrand = sap.ui.getCore().byId("brand_inp").getValue();
+            var sNcups = sap.ui.getCore().byId("ncups_inp").getValue();
+			
+			if (isNaN(parseFloat(sNcups))) {
+				sap.m.MessageToast.show(" Ncups must contain only digits!" );
+				return;
+			}
+			
+			if (sNcups < 1 || sNcups > 9) {
+				sap.m.MessageToast.show(" Ncups must be greater than 1 and less than 9" );
+				return;
+			}
+			
             var oObject = {};
             oObject = {
-              "usid": sUserID,
-              "name": sUserName,
+              "cmid": sCMID,
+              "name": sBrand,
+              "ncups": sNcups,
               "ts_update": null,
               "ts_create": null
             };
@@ -153,8 +212,8 @@ sap.ui.define([
             var oModel = new sap.ui.model.odata.ODataModel("https://p2001079623trial-df43r34-dev-service.cfapps.eu10.hana.ondemand.com/xsodata/dev.xsodata", true);
             sap.ui.getCore().setModel(oModel);
 
-            sap.ui.getCore().getModel().update("/Users('" + sUserID + "')", oObject, null, function() {
-              sap.m.MessageToast.show("Updated successfully", { duration: 3000 });
+            sap.ui.getCore().getModel().update("/CoffeeMachines('" + sCMID + "')", oObject, null, function() {
+              sap.m.MessageToast.show("Updated ", { duration: 3000 });
             }, function() {
               sap.m.MessageToast.show("Update failed", { duration: 3000 });
             });
@@ -179,13 +238,13 @@ sap.ui.define([
     },
 
     onDelete: function(oEvent) {
-      var oUser = this._item;
-      var oUserID = oUser.usid;
+      var oCM = this._item;
+      var oCMID = oCM.cmid;
 
       var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "https://p2001079623trial-df43r34-dev-router.cfapps.eu10.hana.ondemand.com/api/xsjs/user/user.xsjs?userid=" + oUserID,
+        "url": "https://p2001079623trial-df43r34-dev-router.cfapps.eu10.hana.ondemand.com/api/xsjs/coffeemachine/coffeemachine.xsjs?cmid=" + oCMID,
         "method": "DELETE",
         "headers": {
           "content-type": "application/json"
@@ -197,14 +256,16 @@ sap.ui.define([
       });
 
       /*This way is not working*/
-      //var sPath = "/Users('" + oUserID + "')";
+      //var sPath = "/CoffeeMachines('" + oCMID + "')";
       //var sServiceUrl = "https://p2001079623trial-df43r34-dev-service.cfapps.eu10.hana.ondemand.com/xsodata/dev.xsodata";
 
       //var oModel = new sap.ui.model.odata.v2.ODataModel(sServiceUrl, true);
+      //console.log(oModel);
       //oModel.remove(sPath);
 
       //oModel.setRefreshAfterChange(false);
     }
+    
     /*_onObjectMatched: function (oEvent) {
     	this.byId("PeopleDetailPanel").
     	this.getView().bindElement({
