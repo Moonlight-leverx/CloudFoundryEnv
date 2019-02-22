@@ -78,15 +78,7 @@ sap.ui.define([
             var sBrand = sap.ui.getCore().byId("brand_inp").getValue();
 			var sNcups = sap.ui.getCore().byId("ncups_inp").getValue();
 			
-			if (isNaN(parseFloat(sNcups))) {
-				sap.m.MessageToast.show(" Ncups must contain only digits!" );
-				return;
-			}
-			
-			if (sNcups < 1 || sNcups > 9) {
-				sap.m.MessageToast.show(" Ncups must be greater than 1 and less than 9" );
-				return;
-			}
+			if(!checkInput(sNcups)) return;
 			
             var oObject = {};
             oObject = {
@@ -190,15 +182,7 @@ sap.ui.define([
             var sBrand = sap.ui.getCore().byId("brand_inp").getValue();
             var sNcups = sap.ui.getCore().byId("ncups_inp").getValue();
 			
-			if (isNaN(parseFloat(sNcups))) {
-				sap.m.MessageToast.show(" Ncups must contain only digits!" );
-				return;
-			}
-			
-			if (sNcups < 1 || sNcups > 9) {
-				sap.m.MessageToast.show(" Ncups must be greater than 1 and less than 9" );
-				return;
-			}
+			if(!checkInput(sNcups)) return;
 			
             var oObject = {};
             oObject = {
@@ -254,7 +238,6 @@ sap.ui.define([
       $.ajax(settings).done(function(response) {
         sap.m.MessageToast.show("Deleted", { duration: 2000 });
       });
-
       /*This way is not working*/
       //var sPath = "/CoffeeMachines('" + oCMID + "')";
       //var sServiceUrl = "https://p2001079623trial-df43r34-dev-service.cfapps.eu10.hana.ondemand.com/xsodata/dev.xsodata";
@@ -265,7 +248,6 @@ sap.ui.define([
 
       //oModel.setRefreshAfterChange(false);
     }
-    
     /*_onObjectMatched: function (oEvent) {
     	this.byId("PeopleDetailPanel").
     	this.getView().bindElement({
@@ -289,3 +271,15 @@ sap.ui.define([
       }*/
   });
 });
+
+ function checkInput(param) {
+	if (isNaN(parseFloat(param))) {
+		sap.m.MessageToast.show(" Ncups must contain only digits!" );
+		return false;
+	}
+	if (param < 1 || param > 9) {
+		sap.m.MessageToast.show(" Ncups must be greater than 1 and less than 9" );
+		return false;
+	} 
+	return true;
+}
