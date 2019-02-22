@@ -1,6 +1,6 @@
 service namespace "dev"{
 
-    "dev::CoffeeMachine" as "CoffeeMachines"
+    "dev::CoffeeMachines" as "CoffeeMachines"
                 navigates("CoffeeMachines_2_CustomerAddr" as "toCustomerAddr", "CoffeeMachines_2_Services" as "toServices")
             create using "xsjs.coffeemachine:createCM.xsjslib::cmCreate"
             update using "xsjs.coffeemachine:updateCM.xsjslib::cmUpdate"
@@ -23,6 +23,6 @@ service namespace "dev"{
     association "CoffeeMachines_2_Services" principal "CoffeeMachines"("cmid")
             multiplicity "1" dependent "CoffeeMachines"("cmid") multiplicity "*";
 
-    association "Services_2_CoffeeMachine" principal "Services"("cmid")
+    association "Services_2_CoffeeMachines" principal "Services"("cmid")
             multiplicity "1" dependent "CoffeeMachines"("cmid") multiplicity "1";
 }

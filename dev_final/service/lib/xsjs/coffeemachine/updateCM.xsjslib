@@ -1,6 +1,6 @@
 const ConstToJSON = $.import('xsjs.coffeemachine', 'toJSON').toJSON;
 const cToJSON = new ConstToJSON();
-const CM_TABLE = "dev::CoffeeMachine";
+const CM_TABLE = "dev::CoffeeMachines";
 const CURR_TIMESTAMP_FUN = "current_timestamp";
 
 function cmUpdate(param) {

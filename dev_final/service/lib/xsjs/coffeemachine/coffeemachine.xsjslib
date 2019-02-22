@@ -1,6 +1,6 @@
 var coffeemachine = function(connection) {
 
-  const CM_TABLE = "dev::CoffeeMachine";
+  const CM_TABLE = "dev::CoffeeMachines";
   const STMT_INSTANCE = new statements();
   /*
           const USER = $.session.securityContext.userInfo.familyName ?
