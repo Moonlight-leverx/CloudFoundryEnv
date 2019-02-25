@@ -85,7 +85,15 @@
 					"useBatch": false,
 					"disableHeadRequestForToken": true
 				}
-			}
+			},
+			"coffee_machine": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "./model/coffee_machines.json"
+            },
+            "urlmodel": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "./model/image_url.json"
+            }
 		}
 		},
 		"resources": {		}

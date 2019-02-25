@@ -1,14 +1,46 @@
 sap.ui.define([
-  "sap/ui/core/mvc/Controller"
-], function(Controller) {
+  "sap/ui/core/mvc/Controller",
+   "sap/ui/core/Fragment",
+   "sap/ui/model/json/JSONModel"
+], function(Controller, Fragment, JSONModel) {
   "use strict";
   return Controller.extend("coffee_machine_display.controller.Detail", {
 
     onInit: function() {
+      this._images = [
+      	"https://bit.ly/2SpyQlp",
+      	"https://bit.ly/2H20WBi",
+      	"https://bit.ly/2GHGCFP",
+      	"https://bit.ly/2Tgw7PE"
+      ]
       /*var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
       oRouter.getRoute("detail").attachPatternMatched(this._onObjectMatched, this);*/
       var oList = this.byId("details");
       this._oList = oList;
+      this.setNull();
+      
+      var oImgModel = new JSONModel(sap.ui.require.toUrl("sap/ui/demo/mock") + "/img.json");
+	  this.getView().setModel(oImgModel, "img");
+	  var oCarouselContainer = {
+				screenSizes : [
+					"350px",
+					"450px",
+					"550px",
+					"650px",
+					"750px"
+				]
+			};
+	  var oScreenSizesModel = new JSONModel(oCarouselContainer);
+	  this.getView().setModel(oScreenSizesModel, "ScreenSizesModel");
+	  this._setNumberOfImagesInCarousel(3);
+    },
+    
+    setNull: function() {
+    	this._item = null;
+    },
+    
+    closeDialog: function() {
+    	this.getView().byId('createDialog').close();
     },
 
     onSelectionChange: function(oEvent) {
@@ -19,206 +51,92 @@ sap.ui.define([
     onRefresh: function(oEvent) {
       this._oList.getBinding("items").refresh();
     },
+    
+    onCancelButton: function() {
+    	var model = this.getView().getModel("coffee_machine");
+    	model.setData({});
+		this.closeDialog();
+    },
+    
+    onSaveButton: function() {
+    	var model = this.getView().getModel("coffee_machine");
+    	var obj = model.getData();
+	    var oModel = this.getView().getModel("coffee_machines");
+
+    	if (this._item === null) {
+			delete obj.ts_update;
+			delete obj.ts_create;
+			if(!checkInput(obj.ncups)) return;
+	    	oModel.create("/CoffeeMachines", obj, {
+                merge: false,
+                success: function () {
+                    sap.m.MessageToast.show(" Created " );
+                },
+                error: function () {
+                    sap.m.MessageToast.show(" Creation failed" );
+                }
+            });
+            this.closeDialog();
+            this.setNull();
+    	} else {
+    		if(!checkInput(obj.ncups)) return;
+			oModel.update("/CoffeeMachines('" + obj.cmid + "')", obj, {
+                merge: false,
+                success: function () {
+                    sap.m.MessageToast.show(" Updated " );
+                },
+                error: function () {
+                    sap.m.MessageToast.show(" Update failed " );
+                }
+            });
+            model.setData({});
+            this.setNull();
+            this.getView().byId("createDialog").close();
+    	}
+    },
 
     onCreate: function(oEvent) {
-      var dialog = new sap.m.Dialog({
-        title: "Add Coffee Machine",
-        type: "Message",
-        content: [
-          new sap.ui.layout.VerticalLayout({
-            width: "350px",
-            content: [
-              new sap.ui.layout.HorizontalLayout({
-                content: [
-                  new sap.m.Label({
-                    width: "100px",
-                    design: "Bold",
-                    text: "Coffee Machine ID:"
-                  }).addStyleClass("popup_label"),
-                  new sap.m.Input("cmid_inp", {
-                    width: "230px",
-                    value: "ID will generated automatically",
-                    editable: false
-                  })
-                ]
-              }),
-              new sap.ui.layout.HorizontalLayout({
-                content: [
-                  new sap.m.Label({
-                    width: "100px",
-                    design: "Bold",
-                    text: "Brand:"
-                  }).addStyleClass("popup_label"),
-                  new sap.m.Input("brand_inp", {
-                    value: "",
-                    width: "230px"
-                  })
-                ]
-              }),
-              new sap.ui.layout.HorizontalLayout({
-                content: [
-                  new sap.m.Label({
-                    width: "100px",
-                    design: "Bold",
-                    text: "Ncups:"
-                  }).addStyleClass("popup_label"),
-                  new sap.m.Input("ncups_inp", {
-                    width: "230px",
-                    value: ""
-                  })
-                ]
-              })
-            ]
-          })
-        ],
-        beginButton: new sap.m.Button({
-          text: "Save",
-          type: "Accept",
-          press: function() {
-            var sBrand = sap.ui.getCore().byId("brand_inp").getValue();
-			var sNcups = sap.ui.getCore().byId("ncups_inp").getValue();
-			
-			if(!checkInput(sNcups)) return;
-			
-            var oObject = {};
-            oObject = {
-              "cmid": "",
-              "name": sBrand,
-              "ncups": sNcups
-            };
-
-            var sServiceUrl = "https://p2001079623trial-df43r34-dev-service.cfapps.eu10.hana.ondemand.com/xsodata/dev.xsodata";
-
-            var oModel = new sap.ui.model.odata.v2.ODataModel(sServiceUrl, true);
-			
-			oModel.create("/CoffeeMachines", oObject, {
-        		success : function(oData, oResponse) {
-        			sap.m.MessageToast.show(" Created " );
-        		},
-    			error : function(oError) {
-        			sap.m.MessageToast.show(" Creation failed" );
-			    }
-			});
-			
-            oModel.setRefreshAfterChange(false);
-
-            dialog.close();
-          }
-        }),
-        endButton: new sap.m.Button({
-          text: "Cancel",
-          type: "Reject",
-          press: function() {
-            dialog.close();
-          }
-        }),
-        afterClose: function() {
-          dialog.destroy();
-        }
-      });
-      dialog.open();
+    		this.setNull();
+            var view = this.getView();
+            if (!view.byId("createDialog")) {
+                Fragment.load({
+                    id: view.getId(),
+                    name: "coffee_machine_display.view.createDialog",
+                    controller: this
+                }).then(function (oDialog) {
+                    view.addDependent(oDialog);
+                    oDialog.open();
+                });
+            } else {
+                view.byId("createDialog").open();
+            }
     },
+    
     onUpdate: function(oEvent) {
-      var oCM = this._item;
-      var oCMID = oCM.cmid;
-      var oBrand = oCM.name;
-      var oNcups = oCM.ncups;
+    	if (this._item === null) {
+    		sap.m.MessageToast.show(" To change the Coffee Machine, you must select the line" );
+    		return;
+    	}
+    	var model = this.getView().getModel("coffee_machine");
+    	model.setProperty("/cmid", this._item.cmid);
+    	model.setProperty("/name", this._item.name);
+    	model.setProperty("/ncups", this._item.ncups);
+    	model.setProperty("/ts_update", null);
+    	model.setProperty("/ts_create", null);
 
-      var dialog = new sap.m.Dialog({
-        title: "Change Coffee Machine",
-        type: "Message",
-        content: [
-          new sap.ui.layout.VerticalLayout({
-            width: "350px",
-            content: [
-              new sap.ui.layout.HorizontalLayout({
-                content: [
-                  new sap.m.Label({
-                    width: "100px",
-                    design: "Bold",
-                    text: "Coffee Machine ID:"
-                  }).addStyleClass("popup_label"),
-                  new sap.m.Input("cmid_inp", {
-                    width: "230px",
-                    value: oCMID,
-                    editable: false
-                  })
-                ]
-              }),
-              new sap.ui.layout.HorizontalLayout({
-                content: [
-                  new sap.m.Label({
-                    width: "100px",
-                    design: "Bold",
-                    text: "Brand:"
-                  }).addStyleClass("popup_label"),
-                  new sap.m.Input("brand_inp", {
-                    value: oBrand,
-                    width: "230px"
-                  })
-                ]
-              }),
-              new sap.ui.layout.HorizontalLayout({
-                content: [
-                  new sap.m.Label({
-                    width: "100px",
-                    design: "Bold",
-                    text: "Ncups:"
-                  }).addStyleClass("popup_label"),
-                  new sap.m.Input("ncups_inp", {
-                    width: "230px",
-                    value: oNcups
-                  })
-                ]
-              })
-            ]
-          })
-        ],
-        beginButton: new sap.m.Button({
-          text: "Save",
-          type: "Accept",
-          press: function() {
-            var sCMID = sap.ui.getCore().byId("cmid_inp").getValue();
-            var sBrand = sap.ui.getCore().byId("brand_inp").getValue();
-            var sNcups = sap.ui.getCore().byId("ncups_inp").getValue();
-			
-			if(!checkInput(sNcups)) return;
-			
-            var oObject = {};
-            oObject = {
-              "cmid": sCMID,
-              "name": sBrand,
-              "ncups": sNcups,
-              "ts_update": null,
-              "ts_create": null
-            };
-
-            var oModel = new sap.ui.model.odata.ODataModel("https://p2001079623trial-df43r34-dev-service.cfapps.eu10.hana.ondemand.com/xsodata/dev.xsodata", true);
-            sap.ui.getCore().setModel(oModel);
-
-            sap.ui.getCore().getModel().update("/CoffeeMachines('" + sCMID + "')", oObject, null, function() {
-              sap.m.MessageToast.show("Updated ", { duration: 3000 });
-            }, function() {
-              sap.m.MessageToast.show("Update failed", { duration: 3000 });
-            });
-
-            oModel.setRefreshAfterChange(false);
-
-            dialog.close();
-          }
-        }),
-        endButton: new sap.m.Button({
-          text: "Cancel",
-          type: "Reject",
-          press: function() {
-            dialog.close();
-          }
-        }),
-        afterClose: function() {
-          dialog.destroy();
-        }
-      });
-      dialog.open();
+    	var view = this.getView();
+            if (!view.byId('createDialog')) {
+                Fragment.load({
+                    id: view.getId(),
+                    name: 'coffee_machine_display.view.createDialog',
+                    controller: this
+                }).then(function (oDialog) {
+                    view.addDependent(oDialog);
+                    oDialog.open();
+                });
+            } else {
+                view.byId('createDialog').open();
+            }
     },
 
     onDelete: function(oEvent) {
@@ -247,7 +165,67 @@ sap.ui.define([
       //oModel.remove(sPath);
 
       //oModel.setRefreshAfterChange(false);
-    }
+    },
+    
+    onSliderMoved: function (oEvent) {
+		var origingalHeight = 650;
+		var screenSizesJSON = this.getView().getModel("ScreenSizesModel").getData();
+		var iValue = oEvent.getParameter("value");
+		var screenWidth = screenSizesJSON.screenSizes[Number(iValue) - 1];
+		var oCarouselContainer = this.byId("carouselContainer");
+		oCarouselContainer.setWidth(screenWidth);
+		var screenHeight = origingalHeight * parseFloat(screenWidth) / 1000;
+		oCarouselContainer.setHeight(screenHeight + 'px');
+	},
+
+	_setNumberOfImagesInCarousel: function () {
+		var number = this._images.length;
+		
+		if (!number || number < 1 || number > 9){
+			return;
+		}
+		
+		var oCarousel = this.byId("carousel");
+		oCarousel.destroyPages();
+		for (var i = 0; i < number; i++) {
+			var imgId = "img" + (i + 1);
+			var imgSrc = this._images[i];
+			var img = new sap.m.Image(imgId, {
+				src: imgSrc,
+				densityAware: false,
+				decorative: false
+			});
+			oCarousel.addPage(img);
+			}
+	},
+	
+    onAddImage: function() {
+        var view = this.getView();
+        if (!view.byId("addImage")) {
+            Fragment.load({
+                id: view.getId(),
+                name: "coffee_machine_display.view.addImgDialog",
+                controller: this
+            }).then(function (oDialog) {
+                view.addDependent(oDialog);
+                oDialog.open();
+            });
+        } else {
+            view.byId("addImage").open();
+        }
+    },
+    
+    onSaveImg: function() {
+    	var model = this.getView().getModel("urlmodel");
+    	var obj = model.getData();
+    	this._images.push(obj.url);
+    	this._setNumberOfImagesInCarousel();
+    	console.log(this._images);
+    },
+	
+	onCancelImg: function() {
+		this.getView().byId('addImage').close();
+	}
     /*_onObjectMatched: function (oEvent) {
     	this.byId("PeopleDetailPanel").
     	this.getView().bindElement({

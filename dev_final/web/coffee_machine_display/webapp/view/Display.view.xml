@@ -1,4 +1,5 @@
 <mvc:View controllerName="coffee_machine_display.controller.Display"
+  xmlns:f="sap.ui.layout.form"
   xmlns="sap.m"
   xmlns:l="sap.ui.layout"
   xmlns:mvc="sap.ui.core.mvc">
@@ -10,22 +11,22 @@
             <content>
               <l:HorizontalLayout>
                 <l:content>
-                  <Button text="Refresh" press="onRefresh" icon="sap-icon://refresh" class="sapUiTinyMargin ref_btn" type="Ghost">
+                  <Button text="Refresh" press="onRefresh" icon="sap-icon://refresh" class="sapUiTinyMargin" type="Ghost">
                     <layoutData>
                       <FlexItemData growFactor="1" />
                     </layoutData>
                   </Button>
-                  <Button text="Edit" press="onUpdate" icon="sap-icon://edit" class="sapUiTinyMargin edit_btn">
+                  <Button text="Edit" press="onUpdate" icon="sap-icon://edit" class="sapUiTinyMargin">
                     <layoutData>
                       <FlexItemData growFactor="1" />
                     </layoutData>
                   </Button>
-                  <Button text="Create" type="Accept" press="onCreate" icon="sap-icon://add" class="sapUiTinyMargin create_btn">
+                  <Button text="Create" type="Accept" press="onCreate" icon="sap-icon://add" class="sapUiTinyMargin">
                     <layoutData>
                       <FlexItemData growFactor="1" />
                     </layoutData>
                   </Button>
-                  <Button text="Delete" press="onDelete" type="Reject" icon="sap-icon://delete" class="sapUiTinyMargin del_btn">
+                  <Button text="Delete" press="onDelete" type="Reject" icon="sap-icon://delete" class="sapUiTinyMargin">
                     <layoutData>
                       <FlexItemData growFactor="1" />
                     </layoutData>
@@ -72,6 +73,33 @@
               </Table>
             </content>
           </Panel>
+         <Panel expandable="true" expanded="false" headerText="{i18n>carouselHeader}" width="auto" class="sapUiResponsiveMargin">
+			<content>
+				<l:HorizontalLayout>
+					<Button text="{i18n>addImageButton}" press="onAddImage" icon="sap-icon://add-photo" class="sapUiTinyMargin"/>
+				</l:HorizontalLayout>
+				<f:SimpleForm labelSpanL="6"
+							labelSpanM="6"
+							editable="true"
+							layout="ResponsiveGridLayout">
+					<Label text="Shrink carousel container" />
+					<Slider value="5"
+							liveChange="onSliderMoved"
+							width="320px"
+							step="1"
+							min="1"
+							max="5"/>
+				</f:SimpleForm>
+				<Toolbar height="auto">
+					<ToolbarSpacer/>
+					<Panel id="carouselContainer" height="500px">
+						<Carousel class="sapUiContentPadding" loop="true" id="carousel" >
+						</Carousel>
+					</Panel>
+					<ToolbarSpacer/>
+				</Toolbar>
+			</content>
+		</Panel>
         </Page>
       </pages>
     </App>

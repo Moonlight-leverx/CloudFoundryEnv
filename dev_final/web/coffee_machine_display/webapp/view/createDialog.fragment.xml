@@ -1,0 +1,28 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+   xmlns:core="sap.ui.core"
+   xmlns:l="sap.ui.layout"
+   xmlns:tnt="sap.tnt">
+   <Dialog title="{i18n>createDialogTitle}" id="createDialog" >
+        <l:VerticalLayout width="400px">
+        	<l:HorizontalLayout>
+        		<Label text="{i18n>cmIdText}" design="Bold" class="sapUiSmallMarginBegin popup_label" width="150px"/>
+            	<Input value="{coffee_machine>/cmid}" width="230px" editable="false"/>
+        	</l:HorizontalLayout>
+        	<l:HorizontalLayout>
+        		<Label text="{i18n>cmNameText}" design="Bold" class="sapUiSmallMarginBegin popup_label" width="150px"/>
+            	<Input value="{coffee_machine>/name}" required="true" width="230px"/>
+        	</l:HorizontalLayout>
+        	<l:HorizontalLayout>
+        		<Label text="{i18n>cmNcupsText}" design="Bold" class="sapUiSmallMarginBegin popup_label" width="150px"/>
+            	<Input value="{coffee_machine>/ncups}" required="true" width="230px"/>
+        	</l:HorizontalLayout>
+        </l:VerticalLayout>
+        <beginButton>
+         	<Button icon="sap-icon://accept" text="Save" type="Accept" press="onSaveButton"/>       	
+        </beginButton>
+        <endButton>
+            <Button icon="sap-icon://decline" type="Reject" text="Cancel" press="onCancelButton"/>
+        </endButton>
+   </Dialog>
+</core:FragmentDefinition>

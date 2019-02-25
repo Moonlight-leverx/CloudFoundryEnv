@@ -1,0 +1,23 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+   xmlns:core="sap.ui.core"
+   xmlns:l="sap.ui.layout"
+   xmlns:tnt="sap.tnt">
+   <Dialog title="{i18n>addImageButton}" id="addImage" >
+        <l:VerticalLayout width="500px">
+        	<l:HorizontalLayout>
+        		<Label text="{i18n>imageUrl}" design="Bold" class="sapUiSmallMarginBegin popup_label" width="100px"/>
+            	<Input id="imgURL"
+            		   value="{urlmodel>/url}"
+            		   width="380px"
+            		   placeholder="{i18n>placeholder}"/>
+        	</l:HorizontalLayout>
+        </l:VerticalLayout>
+        <beginButton>
+         	<Button icon="sap-icon://accept" text="Add" type="Accept" press="onSaveImg"/>       	
+        </beginButton>
+        <endButton>
+            <Button icon="sap-icon://decline" type="Reject" text="Cancel" press="onCancelImg"/>
+        </endButton>
+   </Dialog>
+</core:FragmentDefinition>
