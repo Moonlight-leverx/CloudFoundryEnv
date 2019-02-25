@@ -220,7 +220,7 @@ sap.ui.define([
     	var obj = model.getData();
     	this._images.push(obj.url);
     	this._setNumberOfImagesInCarousel();
-    	console.log(this._images);
+    	this.getView().byId('addImage').close();
     },
 	
 	onCancelImg: function() {
