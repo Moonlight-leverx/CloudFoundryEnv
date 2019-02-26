@@ -4,7 +4,7 @@
   xmlns:l="sap.ui.layout"
   xmlns:mvc="sap.ui.core.mvc">
   <Shell>
-    <App>
+    <App class="myApp">
       <pages>
         <Page>
           <Panel id="CMDetailPanel" headerText="Info" class="sapUiResponsiveMargin" width="auto">
@@ -31,9 +31,26 @@
                       <FlexItemData growFactor="1" />
                     </layoutData>
                   </Button>
+                  <SearchField class="sapUiTinyMargin" id="searchField" width="400px" placeholder="search for..."
+							   enableSuggestions="true"
+							   search="onSearch"
+							   suggest="onSuggest"
+							   suggestionItems="{
+ 								   path: 'coffee_machines>/CoffeeMachines',
+								   sorter: { path: 'cmid' }
+							   }">
+                  	<layoutData>
+                      <FlexItemData growFactor="1" />
+                    </layoutData>
+					<suggestionItems>
+						<SuggestionItem text="ID: {coffee_machines>cmid}" description="Brand: {coffee_machines>name}, Ncups: {coffee_machines>ncups}" key="{cmid}"/>
+					</suggestionItems>
+				  </SearchField>
                 </l:content>
               </l:HorizontalLayout>
-              <Table id="details" items = "{path: 'coffee_machines>/CoffeeMachines'}" mode="SingleSelect" selectionChange="onSelectionChange">
+              <Table id="details" growing="true" growingThreshold="5" growingScrollToLoad="false" 
+            		 items = "{path: 'coffee_machines>/CoffeeMachines'}" mode="SingleSelect" 
+            		 selectionChange="onSelectionChange">
                 <columns>
                   <Column id="cmIdColumn" width="100px" hAlign="Center" sortIndicator="Ascending">
                     <Text text="{i18n>cmIdText}" />

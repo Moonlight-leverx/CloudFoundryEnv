@@ -1,8 +1,10 @@
 sap.ui.define([
   "sap/ui/core/mvc/Controller",
    "sap/ui/core/Fragment",
-   "sap/ui/model/json/JSONModel"
-], function(Controller, Fragment, JSONModel) {
+   "sap/ui/model/json/JSONModel",
+   "sap/ui/model/Filter",
+   "sap/ui/model/FilterOperator"
+], function(Controller, Fragment, JSONModel, Filter, FilterOperator) {
   "use strict";
   return Controller.extend("coffee_machine_display.controller.Detail", {
 
@@ -15,12 +17,11 @@ sap.ui.define([
       ]
       /*var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
       oRouter.getRoute("detail").attachPatternMatched(this._onObjectMatched, this);*/
+      
       var oList = this.byId("details");
       this._oList = oList;
       this.setNull();
-      
-      var oImgModel = new JSONModel(sap.ui.require.toUrl("sap/ui/demo/mock") + "/img.json");
-	  this.getView().setModel(oImgModel, "img");
+
 	  var oCarouselContainer = {
 				screenSizes : [
 					"350px",
@@ -156,15 +157,6 @@ sap.ui.define([
       $.ajax(settings).done(function(response) {
         sap.m.MessageToast.show("Deleted", { duration: 2000 });
       });
-      /*This way is not working*/
-      //var sPath = "/CoffeeMachines('" + oCMID + "')";
-      //var sServiceUrl = "https://p2001079623trial-df43r34-dev-service.cfapps.eu10.hana.ondemand.com/xsodata/dev.xsodata";
-
-      //var oModel = new sap.ui.model.odata.v2.ODataModel(sServiceUrl, true);
-      //console.log(oModel);
-      //oModel.remove(sPath);
-
-      //oModel.setRefreshAfterChange(false);
     },
     
     onSliderMoved: function (oEvent) {
@@ -225,6 +217,43 @@ sap.ui.define([
 	
 	onCancelImg: function() {
 		this.getView().byId('addImage').close();
+	},
+	
+	onSuggest: function (event) {
+		var oSource = event.getSource();
+		var value = event.getSource().getValue();
+
+		var filters = [];
+		if (value) {
+			filters = [
+				new sap.ui.model.Filter([
+					new sap.ui.model.Filter("cmid", function(sText) {
+						return (sText || "").toUpperCase().indexOf(value.toUpperCase()) > -1;
+					}),
+					new sap.ui.model.Filter("name", function(sDes) {
+						return (sDes || "").toUpperCase().indexOf(value.toUpperCase()) > -1;
+					})
+				], false)
+			];
+		}
+		var oBinding = oSource.getBinding('suggestionItems');
+		oBinding.filter(filters);
+		oBinding.attachEventOnce('dataReceived', function() {
+			oSource.suggest();
+		});
+	},
+	
+	isNumeric: function(oValue) {
+      var tmp = oValue && oValue.toString();
+      return !jQuery.isArray(oValue) && (tmp - parseFloat(tmp) + 1) >= 0;
+    },
+    
+	onSearch: function (event) {
+		var item = event.getParameter("suggestionItem");
+		console.log(item);
+		if (item) {
+			sap.m.MessageToast.show(item.getDescription());
+		}
 	}
     /*_onObjectMatched: function (oEvent) {
     	this.byId("PeopleDetailPanel").
