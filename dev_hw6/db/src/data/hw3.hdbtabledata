@@ -1,0 +1,52 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "DEVSAN::User",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "DEVSAN::Users.csv",
+        "has_header": true
+      },
+      "import_settings": {
+        "import_columns": [
+          "usid",
+          "name",
+          "ts_update",
+          "ts_create"
+        ]
+      }
+    },
+    {
+      "target_table": "DEVSAN::ExtraInfo.Address",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "DEVSAN::Address.csv",
+        "has_header": true
+      },
+      "import_settings": {
+        "import_columns": [
+					"usid",
+					"city",
+					"strt",
+					"hnum"
+        ]
+      }
+    },
+    {
+      "target_table": "DEVSAN::ExtraInfo.Cars",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "DEVSAN::Cars.csv",
+        "has_header": true
+      },
+      "import_settings": {
+        "import_columns": [
+					"crid",
+          "usid",
+          "name"
+        ]
+      }
+    }
+  ]
+}
